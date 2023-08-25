@@ -1,0 +1,146 @@
+\documentclass[11pt, a4paper]{scrartcl}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,allcolors=blue,pdfborder={0 0 0},pdfstartview={FitV},breaklinks,linktocpage]{hyperref}
+\usepackage{color,amsmath,amsfonts,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}%für mehrspaltige Aufzählungen
+\usepackage[ngerman, english]{babel}
+\usepackage{epsfig}
+\usepackage{pstricks}
+\usepackage{graphics}
+\graphicspath{{Figures/}}
+\usepackage{bbm}
+%\usepackage{showlabels}
+\usepackage{siunitx}
+\usepackage[labelfont=bf]{caption}
+%\usepackage{nonfloat}
+\usepackage{booktabs}%für Tabellen
+\usepackage{pgffor} %for loops
+\usepackage{ifthen} %for if
+\usepackage{pgfplots} %für Plots
+\pgfplotsset{
+compat=1.5,
+tick label style={font=\small},
+every axis/.append style={line width=0.8pt, tick style={line width=0.7pt}}
+} %für richtigen Abstand der labels
+\usetikzlibrary{shapes,arrows,fit,calc,positioning,arrows}
+\usepackage[
+  textheight=25cm,
+left=2.3cm,
+right=2.3cm,
+headheight=25pt,
+  includehead,includefoot,
+  heightrounded,
+]{geometry}
+\makeatletter
+\def\input@path{{./Figures/}}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyfoot{}
+\fancyhead{}
+\fancyhead[L]{}
+\fancyhead[R]{\thepage}
+\fancyhead[C]{\nouppercase{\leftmark}}
+\usepackage{url}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{tikzpagenodes}
+
+\definecolor{darkgreen}{rgb}{0.0,0.6,0.0}
+\definecolor{shadedgreen}{rgb}{0.8,0.95,0.8}
+\definecolor{shadedblue}{rgb}{0.85,0.85,1.0}
+\newlength\figureheight 
+\newlength\figurewidth
+
+
+\usepackage[varg]{txfonts} %font/Schrift
+
+
+
+\setenumerate[1]{label=[\arabic*],ref=\arabic*}
+
+
+
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+% Aliases
+\input{aliases.tex}
+
+\begin{document}
+
+\pagenumbering{Roman}
+
+\begin{titlepage}\pdfbookmark[0]{Title}{Title}
+  \sffamily
+  \begin{center}
+{
+\includegraphics[width=5cm]{cp2k_logo.png}
+\\[1em]
+\Huge \bfseries Output summary of a \GW calculation\\[0.4em] using the CP2K package}
+  \end{center}{\large
+  \vspace{3em}
+  Contact:
+  \\[1em]
+    Jan Wilhelm
+      \\[0.5em]
+    Institute of Theoretical Physics
+    \\[0.5em]
+    University of Regensburg
+    \\[0.5em]
+    jan.wilhelm@ur.de
+    \\[3em]
+    
+\pdfbookmark[0]{Contents}{Contents}
+\tableofcontents
+  }
+\end{titlepage}
+
+
+
+
+
+
+
+\pagenumbering{arabic}
+\pagestyle{plain}
+
+
+
+
+
+
+\pagestyle{fancy}
+\section{How to cite the \GW calculation}
+When using the \GW implementation in CP2K, please cite the following publications:
+\begin{enumerate}[leftmargin=*]
+
+\item M.~Graml, K.~Zollner, D.~Hernangómez-Pérez, P.~E.~Faria Junior, and J.~Wilhelm, \textit{Low-scaling GW algorithm applied to twisted transition-metal dichalcogenide heterobilayers}, \href{
+https://doi.org/10.48550/arXiv.2306.16066}{arXiv 2306.16066 (2023)}.
+
+\item J.~Wilhelm, P.~Seewald, D.~Golze, \textit{Low-Scaling GW with Benchmark Accuracy and Application to Phosphorene Nanosheets}, \href{https://doi.org/10.1021/acs.jctc.0c01282}{
+J.~Chem.~Theory Comput.~\textbf{17}, 1662-1677 (2021)}.
+
+
+\item T.\;D.\;Kühne, M.\;Iannuzzi, M.\;Del\;Ben, V.\;V.\;Rybkin, P.\;Seewald, F.\;Stein, T.\;Laino, R.\;Z. Khaliullin, O.\;Schütt, F.\;Schiffmann, D.\;Golze, J.\;Wilhelm, S.\;Chulkov, M.\,H.\,Bani-Hashe\-mian, V.\,Weber, \linebreak U.\,Borst\-nik, M.\,Taillefumier, A.\,S.\,Jakobovits, A.\,Lazzaro, H.\,Pabst,  T.\,Müller,  R.\,Schade, M.\,Guidon, S.\,Ander\-matt, N.\,Holmberg, G.\,K.\,Schenter, A.\,Hehn, A.\,Bussy,  F.\,Belleflamme, G.\,Tabacchi, A.\,Glöß, M.\,Lass, I.\,Bethune, C.\,J.\,Mundy, C.\,Plessl, M.\,Watkins, J.\,VandeVondele, M.\,Krack, J.\,Hutter, \textit{CP2K: An electronic structure and molecular dynamics software package - Quickstep: Efficient and accurate electronic structure calculations}, \href{https://doi.org/10.1063/5.0007045}{J.~Chem.~Phys.~\textbf{152}, 194103 (2020)}.
+
+
+\end{enumerate}
+
+\section{Input parameters}
+
+
+\section{Band structure}
+\begin{figure}[b!]
+\centering
+\setlength\figureheight{7.5cm} 
+\setlength\figurewidth{7.5cm}
+\input{bandstructure.tikz}
+\caption{Left: Electric driving field~$E(t)$, right: Gauge field~$A(t)$ from Eq.~\eqref{e2}.}
+    \label{fig:Efield}
+\end{figure}
+
+
+
+
+
+\end{document}
