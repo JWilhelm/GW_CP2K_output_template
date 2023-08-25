@@ -1,4 +1,4 @@
-#4 special points, 31 k-points
+# 4 special points, 31 k-points
 #  Special point 1          0.00000000     0.00000000     0.00000000  Gamma
 #  Special point 2          0.33300000     0.33300000     0.00000000  K
 #  Special point 3          0.50000000     0.00000000     0.00000000  M
