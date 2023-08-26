@@ -10,18 +10,18 @@ tick pos=left,
 x grid style={white!69.0196078431373!black},
 xmajorgrids,
 xmin=0, 
-xmax=XMAX,
+xmax=\XMAXBSSCF,
 xtick style={color=black},
-xtick={TICKS_SPECIAL_KPOINTS},
-xticklabels={NAMES_SPECIAL_KPOINTS},
+xtick={\TICKSSPECIALKPOINTSBSSCF},
+\XTICKLABELS
+%xticklabels={$\Gamma$,K,$\Gamma$},
 y grid style={white!69.0196078431373!black},
 ylabel={$E-E_\text{VBM}$ in eV},
 ymajorgrids,
-ymin=YMIN,
-ymax=YMAX,
+ymin=\YMINBSSCF,
+ymax=\YMAXBSSCF,
 ytick style={color=black}
 ]
-%ADDHEREPLOTS
-
+\PLOTSBSSCF
 \end{axis}
 \end{tikzpicture}

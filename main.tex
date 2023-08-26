@@ -65,6 +65,7 @@ headheight=25pt,
 
 % Aliases
 \input{aliases.tex}
+\input{bandstructure_SCF_data.tex}
 
 \begin{document}
 
@@ -110,7 +111,24 @@ headheight=25pt,
 
 
 \pagestyle{fancy}
-\section{How to cite the \GW calculation}
+
+\section{Input parameters}
+
+
+\section{Band structure}
+\begin{figure}[h!]
+\centering
+\setlength\figureheight{12cm} 
+\setlength\figurewidth{\textwidth}
+\input{bandstructure_SCF.tikz}
+\caption{Band structure computed using the electronic structure method of the self-consistent field (SCF) cycle. The energy of the bands is given relative to the valence band maximum (VBM).}
+    \label{fig:Efield}
+\end{figure}
+
+
+
+
+\section{How to reference the \GW calculation}
 When using the \GW implementation in CP2K, please cite the following publications:
 \begin{enumerate}[leftmargin=*]
 
@@ -125,22 +143,5 @@ J.~Chem.~Theory Comput.~\textbf{17}, 1662-1677 (2021)}.
 
 
 \end{enumerate}
-
-\section{Input parameters}
-
-
-\section{Band structure}
-\begin{figure}[b!]
-\centering
-\setlength\figureheight{12cm} 
-\setlength\figurewidth{\textwidth}
-\input{bandstructure.tikz}
-\caption{Band structure computed using the electronic structure method of the self-consistent field (SCF) cycle. The energy of the bands is given relative to the valence band maximum (VBM).}
-    \label{fig:Efield}
-\end{figure}
-
-
-
-
 
 \end{document}

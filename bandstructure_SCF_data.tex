@@ -1,36 +1,9 @@
-\begin{tikzpicture}
-
-\definecolor{color0}{rgb}{0.0,0.0,0.5}
-
-
-\begin{axis}[
-height=\figureheight,
-legend cell align={left},
-legend style={
-  fill opacity=0.8,
-  draw opacity=1,
-  text opacity=1,
-  at={(0.03,0.97)},
-  anchor=north west,
-  draw=white!80!black
-},
-tick align=outside,
-tick pos=left,
-width=\figurewidth,
-x grid style={white!69.0196078431373!black},
-xmajorgrids,
-xmin=0, 
-xmax=1.5,
-xtick style={color=black},
-xtick={0,1},
-xticklabels={K,M},
-y grid style={white!69.0196078431373!black},
-ylabel={$E-E_\text{VBM}$ in eV},
-ymajorgrids,
-ymin=-5,
-ymax=5,
-ytick style={color=black}
-]
+\newcommand{\XMAXBSSCF}{1.0}
+\newcommand{\TICKSSPECIALKPOINTSBSSCF}{0,0.5,1}
+\newcommand{\XTICKLABELS}{xticklabels={$\Gamma$,K,$\Gamma$},}
+\newcommand{\YMINBSSCF}{-5.0}
+\newcommand{\YMAXBSSCF}{5.0}
+\newcommand{\PLOTSBSSCF}{
 \addplot[thick, color0, smooth] table {data/band_SCF_6.dat};
 \addplot[thick, color0, smooth] table {data/band_SCF_7.dat};
 \addplot[thick, color0, smooth] table {data/band_SCF_8.dat};
@@ -42,6 +15,4 @@ ytick style={color=black}
 \addplot[thick, color0, smooth] table {data/band_SCF_14.dat};
 \addplot[thick, color0, smooth] table {data/band_SCF_15.dat};
 \addplot[thick, color0, smooth] table {data/band_SCF_16.dat};
-\end{axis}
-
-\end{tikzpicture}
+}
