@@ -77,7 +77,7 @@ def any_number_in_interval(arr, a, b):
             return True
     return False
 
-def read_bandstructure_and_write_tikz_data(filename, fname_write, nkp, nkp_special, n_bands, e_fermi, energy_window):
+def read_bandstructure_and_write_tikz_data(filename, fname_write, nkp, nkp_special, n_occ_bands, n_bands, energy_window):
 
     bandstructure = [[0.0] *  nkp for _ in range(n_bands)]
     xkp = [0.0] * nkp
@@ -85,6 +85,8 @@ def read_bandstructure_and_write_tikz_data(filename, fname_write, nkp, nkp_speci
     zkp = [0.0] * nkp
     abskp = [0.0] * nkp
     ikp = 0
+    e_VBM = -1000
+    e_CBM = 1000
     with open(filename, 'r') as file:
         for line in file:
 
@@ -103,15 +105,23 @@ def read_bandstructure_and_write_tikz_data(filename, fname_write, nkp, nkp_speci
                 band_index = int(line_split[0])
                 band_energy = float(line_split[1])
                 bandstructure[band_index-1][ikp-1] = band_energy
+                if band_index == n_occ_bands: 
+                   e_VBM = max(e_VBM,bandstructure[band_index-1][ikp-1])
+                if band_index == n_occ_bands+1:
+                   e_CBM = min(e_CBM,bandstructure[band_index-1][ikp-1])
+
+    e_fermi = (e_VBM + e_CBM)/2
 
     for band_index in range(n_bands):
         e1 = e_fermi - energy_window/2
         e2 = e_fermi + energy_window/2
         is_band_around_e_fermi = any_number_in_interval(bandstructure[band_index], e1, e2)
         if is_band_around_e_fermi:
-            with open(fname_write+str(band_index)+".dat", 'w') as f:
-                for ikp in range(nkp):
-                       f.write(str(abskp[ikp]) + ' ' + str(bandstructure[band_index][ikp]) + '\n')
+          with open(fname_write+str(band_index)+".dat", 'w') as f:
+            for ikp in range(nkp):
+              f.write(str(abskp[ikp]) + ' ' + str(bandstructure[band_index][ikp]-e_VBM) + '\n')
+
+    print(e_VBM,e_CBM)
 
 # names and running the program
 data_dir = "data"
@@ -124,7 +134,6 @@ n_occ_bands = get_nth_integer(cp2k_out_file_name, 10, "occupied bands in the pri
 n_vir_bands = get_nth_integer(cp2k_out_file_name, 10, "unoccupied bands in the primitive unit cell")
 if n_occ_bands + n_vir_bands != n_bands:
   exit("error in number of bands")
-e_fermi = -1.0
-energy_window = 10.0
+energy_window = 7.0
 read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k, data_dir+"/band_SCF_", \
-                                       nkp, nkp_special, n_bands, e_fermi, energy_window)
+                                       nkp, nkp_special, n_occ_bands, n_bands, energy_window)
