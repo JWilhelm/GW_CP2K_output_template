@@ -1,13 +1,10 @@
 \begin{tikzpicture}
-
-\definecolor{color0}{rgb}{0.0,0.0,0.5}
-
 \begin{axis}[
 height=\figureheight,
 width=\figurewidth,
 tick align=outside,
 tick pos=left,
-x grid style={white!69.0196078431373!black},
+x grid style={white!70!black},
 xmajorgrids,
 xmin=0, 
 xmax=\XMAXBSSCF,
@@ -15,7 +12,7 @@ xtick style={color=black},
 xtick={\TICKSSPECIALKPOINTSBSSCF},
 \XTICKLABELS
 %xticklabels={$\Gamma$,K,$\Gamma$},
-y grid style={white!69.0196078431373!black},
+y grid style={white!70!black},
 ylabel={$E-E_\text{VBM}$ in eV},
 ymajorgrids,
 ymin=\YMINBSSCF,

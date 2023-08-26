@@ -20,8 +20,7 @@
 \usepackage{pgfplots} %für Plots
 \pgfplotsset{
 compat=1.5,
-tick label style={font=\small},
-every axis/.append style={line width=0.8pt, tick style={line width=0.7pt}}
+every axis/.append style={line width=1.0pt, tick style={line width=1.0pt}}
 } %für richtigen Abstand der labels
 \usetikzlibrary{shapes,arrows,fit,calc,positioning,arrows}
 \usepackage[
@@ -49,6 +48,9 @@ headheight=25pt,
 \definecolor{darkgreen}{rgb}{0.0,0.6,0.0}
 \definecolor{shadedgreen}{rgb}{0.8,0.95,0.8}
 \definecolor{shadedblue}{rgb}{0.85,0.85,1.0}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.5}
+
+
 \newlength\figureheight 
 \newlength\figurewidth
 
@@ -56,8 +58,6 @@ headheight=25pt,
 \usepackage[varg]{txfonts} %font/Schrift
 
 
-
-\setenumerate[1]{label=[\arabic*],ref=\arabic*}
 
 
 
@@ -132,14 +132,14 @@ headheight=25pt,
 When using the \GW implementation in CP2K, please cite the following publications:
 \begin{enumerate}[leftmargin=*]
 
-\item M.~Graml, K.~Zollner, D.~Hernangómez-Pérez, P.~E.~Faria Junior, and J.~Wilhelm, \textit{Low-scaling GW algorithm applied to twisted transition-metal dichalcogenide heterobilayers}, \href{
+\item[[1{]}] M.~Graml, K.~Zollner, D.~Hernangómez-Pérez, P.~E.~Faria Junior, and J.~Wilhelm, \textit{Low-scaling GW algorithm applied to twisted transition-metal dichalcogenide heterobilayers}, \href{
 https://doi.org/10.48550/arXiv.2306.16066}{arXiv 2306.16066 (2023)}.
 
-\item J.~Wilhelm, P.~Seewald, D.~Golze, \textit{Low-Scaling GW with Benchmark Accuracy and Application to Phosphorene Nanosheets}, \href{https://doi.org/10.1021/acs.jctc.0c01282}{
+\item[[2{]}] J.~Wilhelm, P.~Seewald, D.~Golze, \textit{Low-Scaling GW with Benchmark Accuracy and Application to Phosphorene Nanosheets}, \href{https://doi.org/10.1021/acs.jctc.0c01282}{
 J.~Chem.~Theory Comput.~\textbf{17}, 1662-1677 (2021)}.
 
 
-\item T.\;D.\;Kühne, M.\;Iannuzzi, M.\;Del\;Ben, V.\;V.\;Rybkin, P.\;Seewald, F.\;Stein, T.\;Laino, R.\;Z. Khaliullin, O.\;Schütt, F.\;Schiffmann, D.\;Golze, J.\;Wilhelm, S.\;Chulkov, M.\,H.\,Bani-Hashe\-mian, V.\,Weber, \linebreak U.\,Borst\-nik, M.\,Taillefumier, A.\,S.\,Jakobovits, A.\,Lazzaro, H.\,Pabst,  T.\,Müller,  R.\,Schade, M.\,Guidon, S.\,Ander\-matt, N.\,Holmberg, G.\,K.\,Schenter, A.\,Hehn, A.\,Bussy,  F.\,Belleflamme, G.\,Tabacchi, A.\,Glöß, M.\,Lass, I.\,Bethune, C.\,J.\,Mundy, C.\,Plessl, M.\,Watkins, J.\,VandeVondele, M.\,Krack, J.\,Hutter, \textit{CP2K: An electronic structure and molecular dynamics software package - Quickstep: Efficient and accurate electronic structure calculations}, \href{https://doi.org/10.1063/5.0007045}{J.~Chem.~Phys.~\textbf{152}, 194103 (2020)}.
+\item[[3{]}] T.\;D.\;Kühne, M.\;Iannuzzi, M.\;Del\;Ben, V.\;V.\;Rybkin, P.\;Seewald, F.\;Stein, T.\;Laino, R.\;Z. Khaliullin, O.\;Schütt, F.\;Schiffmann, D.\;Golze, J.\;Wilhelm, S.\;Chulkov, M.\,H.\,Bani-Hashe\-mian, V.\,Weber, \linebreak U.\,Borst\-nik, M.\,Taillefumier, A.\,S.\,Jakobovits, A.\,Lazzaro, H.\,Pabst,  T.\,Müller,  R.\,Schade, M.\,Guidon, S.\,Ander\-matt, N.\,Holmberg, G.\,K.\,Schenter, A.\,Hehn, A.\,Bussy,  F.\,Belleflamme, G.\,Tabacchi, A.\,Glöß, M.\,Lass, I.\,Bethune, C.\,J.\,Mundy, C.\,Plessl, M.\,Watkins, J.\,VandeVondele, M.\,Krack, J.\,Hutter, \textit{CP2K: An electronic structure and molecular dynamics software package - Quickstep: Efficient and accurate electronic structure calculations}, \href{https://doi.org/10.1063/5.0007045}{J.~Chem.~Phys.~\textbf{152}, 194103 (2020)}.
 
 
 \end{enumerate}
