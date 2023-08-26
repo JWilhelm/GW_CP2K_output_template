@@ -41,7 +41,7 @@ def any_number_in_interval(arr, a, b):
 
 def read_bandstructure_and_write_tikz_data(filename, fname_write, nkp, nkp_special, n_bands, e_fermi, energy_window):
 
-    bandstructure = [[0.0] *  n_bands for _ in range(nkp)]
+    bandstructure = [[0.0] *  nkp for _ in range(n_bands)]
     xkp = [0.0] * nkp
     ykp = [0.0] * nkp
     zkp = [0.0] * nkp
@@ -64,15 +64,16 @@ def read_bandstructure_and_write_tikz_data(filename, fname_write, nkp, nkp_speci
             if "#" not in line: 
                 band_index = int(line_split[0])
                 band_energy = float(line_split[1])
-                bandstructure[ikp-1][band_index-1] = band_energy
+                bandstructure[band_index-1][ikp-1] = band_energy
 
     for band_index in range(n_bands):
-        with open(fname_write+str(band_index)+".dat", 'w') as f:
-            for ikp in range(nkp):
-               e1 = e_fermi - energy_window/2
-               e2 = e_fermi + energy_window/2
-               is_band_around_e_fermi = any_number_in_interval(bandstructure[:][band_index], e1, e2)
-               f.write(str(abskp[ikp]) + ' ' + str(bandstructure[ikp][band_index]) + '\n')
+        e1 = e_fermi - energy_window/2
+        e2 = e_fermi + energy_window/2
+        is_band_around_e_fermi = any_number_in_interval(bandstructure[band_index], e1, e2)
+        if is_band_around_e_fermi:
+            with open(fname_write+str(band_index)+".dat", 'w') as f:
+                for ikp in range(nkp):
+                       f.write(str(abskp[ikp]) + ' ' + str(bandstructure[band_index][ikp]) + '\n')
 
 # names and running the program
 data_dir = "data"
