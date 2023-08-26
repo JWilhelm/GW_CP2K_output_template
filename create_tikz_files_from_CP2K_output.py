@@ -185,6 +185,7 @@ def read_bandstructure_and_write_tikz_data(filename, fname_write, fname_data, nk
 # names and running the program
 data_dir = "data"
 bandstructure_file_cp2k = "bandstructure_SCF.bs"
+bandstructure_file_cp2k_g0w0 = "bandstructure_G0W0.bs"
 create_directory_if_not_exists(data_dir)
 nkp, nkp_special = get_number_of_kpoints(bandstructure_file_cp2k)
 n_bands = get_number_of_bands(bandstructure_file_cp2k)
@@ -199,3 +200,7 @@ energy_window = 7.0
 read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k, data_dir+"/band_SCF_", \
                                        "bandstructure_SCF_data.tex", nkp, nkp_special, \
                                        n_occ_bands, n_bands, energy_window)
+read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_g0w0, data_dir+"/band_G0W0_", \
+                                       "bandstructure_G0W0_data.tex", nkp, nkp_special, \
+                                       n_occ_bands, n_bands, energy_window)
+
