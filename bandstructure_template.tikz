@@ -21,7 +21,7 @@ ymin=YMIN,
 ymax=YMAX,
 ytick style={color=black}
 ]
-%add here the plots
+%ADDHEREPLOTS
 
 \end{axis}
 \end{tikzpicture}

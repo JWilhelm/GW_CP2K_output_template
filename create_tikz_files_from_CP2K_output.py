@@ -1,4 +1,28 @@
 import os 
+import re
+
+def find_single_file_with_patterns(patterns):
+    matching_files = []
+
+    for filename in os.listdir("."):
+        file_path = os.path.join(".", filename)
+
+        if os.path.isfile(file_path) and not filename.endswith(".matrix") and not filename.endswith(".py"):
+            try:
+                with open(file_path, 'r') as file:
+                    content = file.read()
+            except Exception as e:
+                continue  # Skip files that couldn't be read
+
+            if all(re.search(pattern, content) for pattern in patterns):
+                matching_files.append(filename)
+
+    if len(matching_files) == 0:
+        raise FileNotFoundError("No files matching all patterns found.")
+    elif len(matching_files) > 1:
+        raise ValueError("Error: Multiple files matching all patterns found.")
+    
+    return matching_files[0]
 
 def create_directory_if_not_exists(directory_name):
     if not os.path.exists(directory_name):
@@ -81,6 +105,8 @@ bandstructure_file_cp2k = "bandstructure_SCF.bs"
 create_directory_if_not_exists(data_dir)
 nkp, nkp_special = get_number_of_kpoints(bandstructure_file_cp2k)
 n_bands = get_number_of_bands(bandstructure_file_cp2k)
+cp2k_out_file_name = find_single_file_with_patterns(["GW CALC","time/freq. p","URE CALC"])
+print(cp2k_out_file_name)
 e_fermi = -1.0
 energy_window = 10.0
 read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k, data_dir+"/band_SCF_", \
