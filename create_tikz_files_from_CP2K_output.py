@@ -28,17 +28,14 @@ def create_directory_if_not_exists(directory_name):
     if not os.path.exists(directory_name):
         os.mkdir(directory_name)
 
-def get_nth_integer(filename, n, pattern):
+def get_nth_word(filename, n, pattern):
     with open(filename, 'r') as file:
         for line in file:
             if pattern in line:
                 words = line.strip().split()  # Split the line into words
                 if len(words) >= n:
                     tenth_word = words[n-1]  # Index 9 corresponds to the 10th word (0-based index)
-                    try:
-                        return int(tenth_word)  # Convert to integer
-                    except ValueError:
-                        return None  # Return None if conversion fails
+                    return tenth_word  # Convert to integer
 
     return None 
 
@@ -128,14 +125,62 @@ def read_bandstructure_and_write_tikz_data(filename, fname_write, fname_data, nk
             for ikp in range(nkp):
               f.write(str(abskp[ikp]) + ' ' + str(bandstructure[band_index][ikp]-e_VBM) + '\n')
           with open(fname_data, 'a') as f:
-              f.write("\\addplot[ultrathick, color0, smooth] table {"+fname_composed+"};\n")
+              f.write("\\addplot[very thick, darkblue, smooth] table {"+fname_composed+"};\n")
+
+    with open(fname_data, 'a') as f:
+        f.write("}\n")
+        f.write("\\newcommand{\XTICKLABELS}{")
+
+    nkp_special = get_nth_word(filename, 2, "special points,")
+    nkp_special = int(nkp_special)
+    abskp = [0.0] * nkp_special
+    xkp = [0.0] * nkp_special
+    ykp = [0.0] * nkp_special
+    zkp = [0.0] * nkp_special
+    for ikp in range(nkp_special):
+        if ikp != 0:
+            with open(fname_data, 'a') as f:
+                f.write(", ")
+
+        xkp_word = get_nth_word(filename, 5, "Special point "+str(ikp+1))
+        ykp_word = get_nth_word(filename, 6, "Special point "+str(ikp+1))
+        zkp_word = get_nth_word(filename, 7, "Special point "+str(ikp+1))
+        kname = get_nth_word(filename, 8, "Special point "+str(ikp+1))
+
+        xkp[ikp] = float(xkp_word)
+        ykp[ikp] = float(ykp_word)
+        zkp[ikp] = float(zkp_word)
+
+        if ikp > 0:
+           abskp[ikp] = ((xkp[ikp]-xkp[ikp-1])**2+(ykp[ikp]-ykp[ikp-1])**2+\
+                         (zkp[ikp]-zkp[ikp-1])**2)**0.5 + abskp[ikp-1]
+
+        if kname == "Gamma" or kname == "GAMMA":
+            with open(fname_data, 'a') as f:
+                f.write("$\\Gamma$")
+        else:
+            with open(fname_data, 'a') as f:
+                f.write(kname)
+
+    with open(fname_data, 'a') as f:
+        f.write("}\n")
+        f.write("\\newcommand{\TICKSSPECIALKPOINTSBSSCF}{")
+
+    for ikp in range(nkp_special):
+        if ikp != 0:
+            with open(fname_data, 'a') as f:
+                f.write(", ")
+        with open(fname_data, 'a') as f:
+            f.write(str(abskp[ikp]))
 
     with open(fname_data, 'a') as f:
         f.write("}\n")
 
 
 
-    print(e_VBM,e_CBM)
+
+
+
 
 # names and running the program
 data_dir = "data"
@@ -144,8 +189,10 @@ create_directory_if_not_exists(data_dir)
 nkp, nkp_special = get_number_of_kpoints(bandstructure_file_cp2k)
 n_bands = get_number_of_bands(bandstructure_file_cp2k)
 cp2k_out_file_name = find_single_file_with_patterns(["GW CALC","time/freq. p","URE CALC"])
-n_occ_bands = get_nth_integer(cp2k_out_file_name, 10, "occupied bands in the primitive unit cell")
-n_vir_bands = get_nth_integer(cp2k_out_file_name, 10, "unoccupied bands in the primitive unit cell")
+n_occ_bands = get_nth_word(cp2k_out_file_name, 10, "occupied bands in the primitive unit cell")
+n_occ_bands = int(n_occ_bands)
+n_vir_bands = get_nth_word(cp2k_out_file_name, 10, "unoccupied bands in the primitive unit cell")
+n_vir_bands = int(n_vir_bands)
 if n_occ_bands + n_vir_bands != n_bands:
   exit("error in number of bands")
 energy_window = 7.0
