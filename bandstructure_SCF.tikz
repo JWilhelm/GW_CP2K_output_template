@@ -10,7 +10,7 @@ xmin=0,
 xmax=\XMAXBSSCF,
 xtick style={color=black},
 xtick={\TICKSSPECIALKPOINTSBSSCF},
-\XTICKLABELS
+\XTICKLABELSSCF
 minor y tick num=1,
 grid=both,
 y grid style={white!70!black},

@@ -7,17 +7,17 @@ tick pos=left,
 x grid style={white!70!black},
 xmajorgrids,
 xmin=0, 
-xmax=\XMAXBSSCF,
+xmax=\XMAXBSGW,
 xtick style={color=black},
-xtick={\TICKSSPECIALKPOINTSBSSCF},
-\XTICKLABELS
+xtick={\TICKSSPECIALKPOINTSBSGW},
+\XTICKLABELSGW
 minor y tick num=1,
 grid=both,
 y grid style={white!70!black},
 ylabel={$E-E_\text{VBM}$ in eV},
 ymajorgrids,
-ymin=\YMINBSSCF,
-ymax=\YMAXBSSCF,
+ymin=\YMINBSGW,
+ymax=\YMAXBSGW,
 ytick style={color=black}
 ]
 \PLOTSBSGW

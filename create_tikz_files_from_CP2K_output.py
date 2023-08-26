@@ -129,7 +129,7 @@ def read_bandstructure_and_write_tikz_data(filename, scf_gw, fname_write, fname_
 
     with open(fname_data, 'a') as f:
         f.write("}\n")
-        f.write("\\newcommand{\XTICKLABELS}{xticklabels={")
+        f.write("\\newcommand{\XTICKLABELS"+scf_gw+"}{xticklabels={")
 
     nkp_special = get_nth_word(filename, 2, "special points,")
     nkp_special = int(nkp_special)
