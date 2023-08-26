@@ -77,7 +77,7 @@ def any_number_in_interval(arr, a, b):
             return True
     return False
 
-def read_bandstructure_and_write_tikz_data(filename, fname_write, nkp, nkp_special, n_occ_bands, n_bands, energy_window):
+def read_bandstructure_and_write_tikz_data(filename, fname_write, fname_data, nkp, nkp_special, n_occ_bands, n_bands, energy_window):
 
     bandstructure = [[0.0] *  nkp for _ in range(n_bands)]
     xkp = [0.0] * nkp
@@ -111,15 +111,29 @@ def read_bandstructure_and_write_tikz_data(filename, fname_write, nkp, nkp_speci
                    e_CBM = min(e_CBM,bandstructure[band_index-1][ikp-1])
 
     e_fermi = (e_VBM + e_CBM)/2
+    e1 = e_fermi - energy_window/2
+    e2 = e_fermi + energy_window/2
+
+    with open(fname_data, 'w') as f:
+        f.write("\\newcommand{\\XMAXBSSCF}{"+str(abskp[-1])+"}\n")
+        f.write("\\newcommand{\\YMINBSSCF}{"+str(-energy_window/2)+"}\n")
+        f.write("\\newcommand{\\YMAXBSSCF}{"+str(e_CBM-e_VBM+energy_window/2)+"}\n")
+        f.write("\\newcommand{\PLOTSBSSCF}{\n")
 
     for band_index in range(n_bands):
-        e1 = e_fermi - energy_window/2
-        e2 = e_fermi + energy_window/2
         is_band_around_e_fermi = any_number_in_interval(bandstructure[band_index], e1, e2)
         if is_band_around_e_fermi:
-          with open(fname_write+str(band_index)+".dat", 'w') as f:
+          fname_composed = fname_write+str(band_index)+".dat"
+          with open(fname_composed, 'w') as f:
             for ikp in range(nkp):
               f.write(str(abskp[ikp]) + ' ' + str(bandstructure[band_index][ikp]-e_VBM) + '\n')
+          with open(fname_data, 'a') as f:
+              f.write("\\addplot[ultrathick, color0, smooth] table {"+fname_composed+"};\n")
+
+    with open(fname_data, 'a') as f:
+        f.write("}\n")
+
+
 
     print(e_VBM,e_CBM)
 
@@ -136,4 +150,5 @@ if n_occ_bands + n_vir_bands != n_bands:
   exit("error in number of bands")
 energy_window = 7.0
 read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k, data_dir+"/band_SCF_", \
-                                       nkp, nkp_special, n_occ_bands, n_bands, energy_window)
+                                       "bandstructure_SCF_data.tex", nkp, nkp_special, \
+                                       n_occ_bands, n_bands, energy_window)
