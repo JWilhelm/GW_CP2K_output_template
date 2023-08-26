@@ -29,7 +29,7 @@ ymajorgrids,
 ymin=-0.369699250104158, ymax=0.580129489790149,
 ytick style={color=black}
 ]
-\addplot table {band1_SCF.dat};
+\addplot table {data/band1_SCF.dat};
 \end{axis}
 
 \end{tikzpicture}
