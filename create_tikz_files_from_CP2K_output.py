@@ -74,7 +74,7 @@ def any_number_in_interval(arr, a, b):
             return True
     return False
 
-def read_bandstructure_and_write_tikz_data(filename, fname_write, fname_data, nkp, nkp_special, n_occ_bands, n_bands, energy_window):
+def read_bandstructure_and_write_tikz_data(filename, scf_gw, fname_write, fname_data, nkp, nkp_special, n_occ_bands, n_bands, energy_window):
 
     bandstructure = [[0.0] *  nkp for _ in range(n_bands)]
     xkp = [0.0] * nkp
@@ -112,10 +112,10 @@ def read_bandstructure_and_write_tikz_data(filename, fname_write, fname_data, nk
     e2 = e_fermi + energy_window/2
 
     with open(fname_data, 'w') as f:
-        f.write("\\newcommand{\\XMAXBSSCF}{"+str(abskp[-1])+"}\n")
-        f.write("\\newcommand{\\YMINBSSCF}{"+str(-energy_window/2)+"}\n")
-        f.write("\\newcommand{\\YMAXBSSCF}{"+str(e_CBM-e_VBM+energy_window/2)+"}\n")
-        f.write("\\newcommand{\PLOTSBSSCF}{\n")
+        f.write("\\newcommand{\\XMAXBS"+scf_gw+"}{"+str(abskp[-1])+"}\n")
+        f.write("\\newcommand{\\YMINBS"+scf_gw+"}{"+str(-energy_window/2)+"}\n")
+        f.write("\\newcommand{\\YMAXBS"+scf_gw+"}{"+str(e_CBM-e_VBM+energy_window/2)+"}\n")
+        f.write("\\newcommand{\PLOTSBS"+scf_gw+"}{\n")
 
     for band_index in range(n_bands):
         is_band_around_e_fermi = any_number_in_interval(bandstructure[band_index], e1, e2)
@@ -164,7 +164,7 @@ def read_bandstructure_and_write_tikz_data(filename, fname_write, fname_data, nk
 
     with open(fname_data, 'a') as f:
         f.write("},}\n")
-        f.write("\\newcommand{\TICKSSPECIALKPOINTSBSSCF}{")
+        f.write("\\newcommand{\TICKSSPECIALKPOINTSBS"+scf_gw+"}{")
 
     for ikp in range(nkp_special):
         if ikp != 0:
@@ -175,10 +175,6 @@ def read_bandstructure_and_write_tikz_data(filename, fname_write, fname_data, nk
 
     with open(fname_data, 'a') as f:
         f.write("}\n")
-
-
-
-
 
 
 
@@ -197,10 +193,10 @@ n_vir_bands = int(n_vir_bands)
 if n_occ_bands + n_vir_bands != n_bands:
   exit("error in number of bands")
 energy_window = 7.0
-read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k, data_dir+"/band_SCF_", \
+read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k, "SCF", data_dir+"/band_SCF_", \
                                        "bandstructure_SCF_data.tex", nkp, nkp_special, \
                                        n_occ_bands, n_bands, energy_window)
-read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_g0w0, data_dir+"/band_G0W0_", \
+read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_g0w0, "G0W0", data_dir+"/band_G0W0_", \
                                        "bandstructure_G0W0_data.tex", nkp, nkp_special, \
                                        n_occ_bands, n_bands, energy_window)
 
