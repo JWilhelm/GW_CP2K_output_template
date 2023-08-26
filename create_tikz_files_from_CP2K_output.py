@@ -18,7 +18,7 @@ def find_single_file_with_patterns(patterns):
                 matching_files.append(filename)
 
     if len(matching_files) == 0:
-        raise FileNotFoundError("No files matching all patterns found.")
+        raise FileNotFoundError("No CP2K output file has been found.")
     elif len(matching_files) > 1:
         raise ValueError("Error: Multiple files matching all patterns found.")
     
@@ -27,6 +27,20 @@ def find_single_file_with_patterns(patterns):
 def create_directory_if_not_exists(directory_name):
     if not os.path.exists(directory_name):
         os.mkdir(directory_name)
+
+def get_nth_integer(filename, n, pattern):
+    with open(filename, 'r') as file:
+        for line in file:
+            if pattern in line:
+                words = line.strip().split()  # Split the line into words
+                if len(words) >= n:
+                    tenth_word = words[n-1]  # Index 9 corresponds to the 10th word (0-based index)
+                    try:
+                        return int(tenth_word)  # Convert to integer
+                    except ValueError:
+                        return None  # Return None if conversion fails
+
+    return None 
 
 def get_number_of_bands(filename):
     found = False
@@ -106,7 +120,10 @@ create_directory_if_not_exists(data_dir)
 nkp, nkp_special = get_number_of_kpoints(bandstructure_file_cp2k)
 n_bands = get_number_of_bands(bandstructure_file_cp2k)
 cp2k_out_file_name = find_single_file_with_patterns(["GW CALC","time/freq. p","URE CALC"])
-print(cp2k_out_file_name)
+n_occ_bands = get_nth_integer(cp2k_out_file_name, 10, "occupied bands in the primitive unit cell")
+n_vir_bands = get_nth_integer(cp2k_out_file_name, 10, "unoccupied bands in the primitive unit cell")
+if n_occ_bands + n_vir_bands != n_bands:
+  exit("error in number of bands")
 e_fermi = -1.0
 energy_window = 10.0
 read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k, data_dir+"/band_SCF_", \
