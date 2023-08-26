@@ -107,9 +107,8 @@ def read_bandstructure_and_write_tikz_data(filename, scf_gw, fname_write, fname_
                 if band_index == n_occ_bands+1:
                    e_CBM = min(e_CBM,bandstructure[band_index-1][ikp-1])
 
-    e_fermi = (e_VBM + e_CBM)/2
-    e1 = e_fermi - energy_window/2
-    e2 = e_fermi + energy_window/2
+    e1 = e_VBM - energy_window/2
+    e2 = e_CBM + energy_window/2
 
     with open(fname_data, 'w') as f:
         f.write("\\newcommand{\\XMAXBS"+scf_gw+"}{"+str(abskp[-1])+"}\n")
@@ -119,6 +118,7 @@ def read_bandstructure_and_write_tikz_data(filename, scf_gw, fname_write, fname_
 
     for band_index in range(n_bands):
         is_band_around_e_fermi = any_number_in_interval(bandstructure[band_index], e1, e2)
+
         if is_band_around_e_fermi:
           fname_composed = fname_write+str(band_index)+".dat"
           with open(fname_composed, 'w') as f:
