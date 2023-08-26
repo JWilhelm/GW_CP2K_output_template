@@ -196,7 +196,7 @@ energy_window = 7.0
 read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k, "SCF", data_dir+"/band_SCF_", \
                                        "bandstructure_SCF_data.tex", nkp, nkp_special, \
                                        n_occ_bands, n_bands, energy_window)
-read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_g0w0, "G0W0", data_dir+"/band_G0W0_", \
+read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_g0w0, "GW", data_dir+"/band_G0W0_", \
                                        "bandstructure_G0W0_data.tex", nkp, nkp_special, \
                                        n_occ_bands, n_bands, energy_window)
 
