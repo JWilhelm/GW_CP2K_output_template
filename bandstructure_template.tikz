@@ -1,0 +1,27 @@
+\begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0.0,0.0,0.5}
+
+\begin{axis}[
+height=\figureheight,
+width=\figurewidth,
+tick align=outside,
+tick pos=left,
+x grid style={white!69.0196078431373!black},
+xmajorgrids,
+xmin=0, 
+xmax=XMAX,
+xtick style={color=black},
+xtick={TICKS_SPECIAL_KPOINTS},
+xticklabels={NAMES_SPECIAL_KPOINTS},
+y grid style={white!69.0196078431373!black},
+ylabel={$E-E_\text{VBM}$ in eV},
+ymajorgrids,
+ymin=YMIN,
+ymax=YMAX,
+ytick style={color=black}
+]
+%add here the plots
+
+\end{axis}
+\end{tikzpicture}

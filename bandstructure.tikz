@@ -1,7 +1,7 @@
 \begin{tikzpicture}
 
-\definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
-\definecolor{color1}{rgb}{1,0.498039215686275,0.0549019607843137}
+\definecolor{color0}{rgb}{0.0,0.0,0.5}
+
 
 \begin{axis}[
 height=\figureheight,
@@ -19,17 +19,29 @@ tick pos=left,
 width=\figurewidth,
 x grid style={white!69.0196078431373!black},
 xmajorgrids,
-xmin=0, xmax=0.470617902574182,
+xmin=0, 
+xmax=1.5,
 xtick style={color=black},
-xtick={0,0.253207952299364,0.470617902574182},
-xticklabels={K,\(\displaystyle \Gamma\),M},
+xtick={0,1},
+xticklabels={K,M},
 y grid style={white!69.0196078431373!black},
-ylabel={Band energy in eV},
+ylabel={$E-E_\text{VBM}$ in eV},
 ymajorgrids,
-ymin=-0.369699250104158, ymax=0.580129489790149,
+ymin=-5,
+ymax=5,
 ytick style={color=black}
 ]
-\addplot table {data/band1_SCF.dat};
+\addplot[thick, color0, smooth] table {data/band_SCF_6.dat};
+\addplot[thick, color0, smooth] table {data/band_SCF_7.dat};
+\addplot[thick, color0, smooth] table {data/band_SCF_8.dat};
+\addplot[thick, color0, smooth] table {data/band_SCF_9.dat};
+\addplot[thick, color0, smooth] table {data/band_SCF_10.dat};
+\addplot[thick, color0, smooth] table {data/band_SCF_11.dat};
+\addplot[thick, color0, smooth] table {data/band_SCF_12.dat};
+\addplot[thick, color0, smooth] table {data/band_SCF_13.dat};
+\addplot[thick, color0, smooth] table {data/band_SCF_14.dat};
+\addplot[thick, color0, smooth] table {data/band_SCF_15.dat};
+\addplot[thick, color0, smooth] table {data/band_SCF_16.dat};
 \end{axis}
 
 \end{tikzpicture}
