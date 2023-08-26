@@ -1,10 +1,11 @@
-#def write_xyz_file(filename, atoms):
-#    num_atoms = len(atoms)
-#    with open(filename, 'w') as f:
-#        f.write(str(num_atoms) + '\n')
-#        f.write('Na atoms arranged in a square pyramid\n')
-#        for atom in atoms:
-#            f.write('Na {:.6f} {:.6f} {:.6f}\n'.format(*atom))
+import os 
+
+def create_directory_if_not_exists(directory_name):
+    if not os.path.exists(directory_name):
+        os.mkdir(directory_name)
+        print(f"Directory '{directory_name}' created.")
+    else:
+        print(f"Directory '{directory_name}' already exists.")
 
 def get_number_of_bands(filename):
     found = False
@@ -35,7 +36,7 @@ def get_number_of_kpoints(filename):
 
     return nkp, nkp_special
 
-def read_bandstructure_and_write_tikz_data(filename, fname_write, nkp, nkp_special, n_bands):
+def read_bandstructure_and_write_tikz_data(filename, fname_write, nkp, nkp_special, n_bands, e_fermi):
 
     bandstructure = [[0.0] *  n_bands for _ in range(nkp)]
     xkp = [0.0] * nkp
@@ -48,7 +49,7 @@ def read_bandstructure_and_write_tikz_data(filename, fname_write, nkp, nkp_speci
 
             line_split = line.split()
 
-            if "# Point" in line:
+            if "#  Point" in line:
                 xkp[ikp] = float(line_split[4])
                 ykp[ikp] = float(line_split[5])
                 zkp[ikp] = float(line_split[6])
@@ -60,9 +61,8 @@ def read_bandstructure_and_write_tikz_data(filename, fname_write, nkp, nkp_speci
             if "#" not in line: 
                 band_index = int(line_split[0])
                 band_energy = float(line_split[1])
-                print("ikp", ikp)
-                print("band_index", band_index)
-                bandstructure[ikp][band_index-1] = band_energy
+                bandstructure[ikp-1][band_index-1] = band_energy
+                print("ikp", ikp, "band_index", band_index, "energy =", bandstructure[ikp-1][band_index-1])
 
 
     for band_index in range(n_bands):
@@ -70,11 +70,14 @@ def read_bandstructure_and_write_tikz_data(filename, fname_write, nkp, nkp_speci
             for ikp in range(nkp):
                f.write(str(abskp[ikp]) + ' ' + str(bandstructure[ikp][band_index]) + '\n')
 
-
-# Generate the atoms for the square pyramid
+# names and running the program
+data_dir = "data"
+create_directory_if_not_exists(data_dir)
 nkp, nkp_special = get_number_of_kpoints("bandstructure_SCF.bs")
 n_bands = get_number_of_bands("bandstructure_SCF.bs")
-read_bandstructure_and_write_tikz_data("bandstructure_SCF.bs", "band_SCF_", nkp, nkp_special, n_bands)
+e_fermi = -1.0
+read_bandstructure_and_write_tikz_data("bandstructure_SCF.bs", data_dir+"/band_SCF_", \
+                                       nkp, nkp_special, n_bands, e_fermi)
 print("Number of kpoints is ", nkp)
 print("Number of bands is ", n_bands)
 
