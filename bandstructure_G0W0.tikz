@@ -18,8 +18,11 @@ ylabel={$E-E_\text{VBM}$ in eV},
 ymajorgrids,
 ymin=\YMINBSGW,
 ymax=\YMAXBSGW,
-ytick style={color=black}
+ytick style={color=black},
+legend pos=north west,
 ]
+\addlegendimage{empty legend}
+\addlegendentry{$G_0W_0$}
 \PLOTSBSGW
 \end{axis}
 \end{tikzpicture}

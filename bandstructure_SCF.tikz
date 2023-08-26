@@ -18,8 +18,11 @@ ylabel={$E-E_\text{VBM}$ in eV},
 ymajorgrids,
 ymin=\YMINBSSCF,
 ymax=\YMAXBSSCF,
-ytick style={color=black}
+ytick style={color=black},
+legend pos=north west,
 ]
+\addlegendimage{empty legend}
+\addlegendentry{SCF}
 \PLOTSBSSCF
 \end{axis}
 \end{tikzpicture}
