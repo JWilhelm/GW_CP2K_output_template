@@ -74,7 +74,7 @@ def any_number_in_interval(arr, a, b):
             return True
     return False
 
-def read_bandstructure_and_write_tikz_data(filename, scf_gw, fname_write, fname_data, nkp, nkp_special, n_occ_bands, n_bands, energy_window):
+def read_bandstructure_and_write_tikz_data(filename, scf_gw, fname_write, fname_data, nkp, nkp_special, n_occ_bands, n_bands, energy_window, do_soc):
 
     bandstructure = [[0.0] *  nkp for _ in range(n_bands)]
     xkp = [0.0] * nkp
@@ -125,7 +125,10 @@ def read_bandstructure_and_write_tikz_data(filename, scf_gw, fname_write, fname_
             for ikp in range(nkp):
               f.write(str(abskp[ikp]) + ' ' + str(bandstructure[band_index][ikp]-e_VBM) + '\n')
           with open(fname_data, 'a') as f:
-              f.write("\\addplot[very thick, darkblue, smooth] table {"+fname_composed+"};\n")
+              if do_soc and band_index % 2 == 1:
+                  f.write("\\addplot[very thick, orange, dashed, smooth] table {"+fname_composed+"};\n")
+              else:
+                  f.write("\\addplot[very thick, darkblue, smooth] table {"+fname_composed+"};\n")
 
     with open(fname_data, 'a') as f:
         f.write("}\n")
@@ -181,6 +184,7 @@ def read_bandstructure_and_write_tikz_data(filename, scf_gw, fname_write, fname_
 # names and running the program
 data_dir = "data"
 bandstructure_file_cp2k = "bandstructure_SCF.bs"
+bandstructure_file_cp2k_soc = "bandstructure_SCF_SOC.bs"
 bandstructure_file_cp2k_g0w0 = "bandstructure_G0W0.bs"
 create_directory_if_not_exists(data_dir)
 nkp, nkp_special = get_number_of_kpoints(bandstructure_file_cp2k)
@@ -195,8 +199,11 @@ if n_occ_bands + n_vir_bands != n_bands:
 energy_window = 7.0
 read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k, "SCF", data_dir+"/band_SCF_", \
                                        "bandstructure_SCF_data.tex", nkp, nkp_special, \
-                                       n_occ_bands, n_bands, energy_window)
+                                       n_occ_bands, n_bands, energy_window, do_soc=False)
+read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_soc, "SCFSOC", data_dir+"/band_SCF_SOC", \
+                                       "bandstructure_SCF_SOC_data.tex", nkp, nkp_special, \
+                                       2*n_occ_bands, 2*n_bands, energy_window, do_soc=True)
 read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_g0w0, "GW", data_dir+"/band_G0W0_", \
                                        "bandstructure_G0W0_data.tex", nkp, nkp_special, \
-                                       n_occ_bands, n_bands, energy_window)
+                                       n_occ_bands, n_bands, energy_window, do_soc=False)
 
