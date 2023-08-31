@@ -186,6 +186,7 @@ data_dir = "data"
 bandstructure_file_cp2k = "bandstructure_SCF.bs"
 bandstructure_file_cp2k_soc = "bandstructure_SCF_SOC.bs"
 bandstructure_file_cp2k_g0w0 = "bandstructure_G0W0.bs"
+bandstructure_file_cp2k_g0w0_soc = "bandstructure_G0W0_SOC.bs"
 create_directory_if_not_exists(data_dir)
 nkp, nkp_special = get_number_of_kpoints(bandstructure_file_cp2k)
 n_bands = get_number_of_bands(bandstructure_file_cp2k)
@@ -206,4 +207,6 @@ read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_soc, "SCFSOC", da
 read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_g0w0, "GW", data_dir+"/band_G0W0_", \
                                        "bandstructure_G0W0_data.tex", nkp, nkp_special, \
                                        n_occ_bands, n_bands, energy_window, do_soc=False)
-
+read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_g0w0_soc, "GWSOC", data_dir+"/band_SCF_G0W0_SOC", \
+                                       "bandstructure_G0W0_SOC_data.tex", nkp, nkp_special, \
+                                       2*n_occ_bands, 2*n_bands, energy_window, do_soc=True)

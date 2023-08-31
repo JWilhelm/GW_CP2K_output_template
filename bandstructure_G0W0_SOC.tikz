@@ -7,22 +7,22 @@ tick pos=left,
 x grid style={white!70!black},
 xmajorgrids,
 xmin=0, 
-xmax=\XMAXBSSCFSOC,
+xmax=\XMAXBSGWSOC,
 xtick style={color=black},
-xtick={\TICKSSPECIALKPOINTSBSSCFSOC},
-\XTICKLABELSSCFSOC
+xtick={\TICKSSPECIALKPOINTSBSGWSOC},
+\XTICKLABELSGWSOC
 minor y tick num=1,
 grid=both,
 y grid style={white!70!black},
 ylabel={$E-E_\text{VBM}$ in eV},
 ymajorgrids,
-ymin=\YMINBSSCFSOC,
-ymax=\YMAXBSSCFSOC,
+ymin=\YMINBSGWSOC,
+ymax=\YMAXBSGWSOC,
 ytick style={color=black},
 legend pos=north west,
 ]
 \addlegendimage{empty legend}
-\addlegendentry{SCF+SOC}
-\PLOTSBSSCFSOC
+\addlegendentry{$G_0W_0$+SOC}
+\PLOTSBSGWSOC
 \end{axis}
 \end{tikzpicture}
