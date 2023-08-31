@@ -66,6 +66,7 @@ headheight=25pt,
 % Aliases
 \input{aliases.tex}
 \input{bandstructure_SCF_data.tex}
+\input{bandstructure_SCF_SOC_data.tex}
 \input{bandstructure_G0W0_data.tex}
 
 \begin{document}
@@ -119,13 +120,27 @@ headheight=25pt,
 \section{Band structure}
 \begin{figure}[h!]
 \centering
-\setlength\figureheight{12cm} 
+\setlength\figureheight{11cm} 
 \setlength\figurewidth{0.47\textwidth}
 \input{bandstructure_SCF.tikz}
 \hfill
 \input{bandstructure_G0W0.tikz}
-\caption{Electronic band structure from the self-consistent field (SCF) electronic structure method. The energy of the bands is given relative to the valence band maximum (VBM).}
-    \label{fig:Efield}
+\caption{Electronic band structure computed from the self-consistent field (SCF) electronic structure method (left) and computed from $G_0W_0$ (right). The energy of the bands is given relative to the valence band maximum (VBM).}
+    \label{f1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\setlength\figureheight{11cm} 
+\setlength\figurewidth{0.47\textwidth}
+\input{bandstructure_SCF_SOC.tikz}
+\caption{Electronic band structure computed from the self-consistent field (SCF) electronic structure method with spin-orbit coupling (SOC). The energy of the bands is given relative to the valence band maximum (VBM).
+%
+Blue bands have an odd band index (1, 3, 5, $\ldots$) and orange bands have an even band index (2, 4, 6, $\ldots$). 
+%
+The blue/orange color does not include information on the spin expectation value of the bands. 
+}
+    \label{f2}
 \end{figure}
 
 
