@@ -20,7 +20,7 @@ ytick style={draw=none},
 legend pos=north west,
 ]
 \addlegendimage{empty legend}
-\addlegendentry{SCF}
+\legendDOSSCF
 \PLOTSDOSSCF
 \end{axis}
 \end{tikzpicture}
