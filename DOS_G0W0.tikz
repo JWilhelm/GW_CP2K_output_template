@@ -1,0 +1,25 @@
+\begin{tikzpicture}
+\begin{axis}[
+height=\figureheight,
+width=\figurewidth,
+tick align=outside,
+tick pos=left,
+x grid style={white!70!black},
+xmajorgrids,
+xlabel={Density of states (1/eV)},
+%\XTICKLABELSSCF
+minor y tick num=1,
+grid=both,
+y grid style={white!70!black},
+ylabel={},
+ymin=\YMINBSSCF,
+ymax=\YMAXBSSCF,
+ymajorgrids,
+yticklabels={},
+ytick style={draw=none},
+legend pos=outer north east,
+legend cell align={left},
+]
+\PLOTSDOSSCF
+\end{axis}
+\end{tikzpicture}
