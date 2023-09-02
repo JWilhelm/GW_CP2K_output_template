@@ -17,10 +17,9 @@ ymax=\YMAXBSSCF,
 ymajorgrids,
 yticklabels={},
 ytick style={draw=none},
-legend pos=north west,
+legend pos=outer north east,
+legend cell align={left},
 ]
-\addlegendimage{empty legend}
-\legendDOSSCF
 \PLOTSDOSSCF
 \end{axis}
 \end{tikzpicture}
