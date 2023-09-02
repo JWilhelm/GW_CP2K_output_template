@@ -10,6 +10,8 @@ xmin=0,
 xmax=\XMAXBSGW,
 xtick={\TICKSSPECIALKPOINTSBSGW},
 \XTICKLABELSGW
+xlabel={\color{white}Ky},
+xlabel style={yshift=-0.04em},
 minor y tick num=1,
 grid=both,
 y grid style={white!70!black},
