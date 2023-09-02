@@ -8,7 +8,6 @@ x grid style={white!70!black},
 xmajorgrids,
 xmin=0, 
 xmax=\XMAXBSSCFSOC,
-xtick style={color=black},
 xtick={\TICKSSPECIALKPOINTSBSSCFSOC},
 \XTICKLABELSSCFSOC
 minor y tick num=1,
@@ -18,7 +17,6 @@ ylabel={$E-E_\text{VBM}$ in eV},
 ymajorgrids,
 ymin=\YMINBSSCFSOC,
 ymax=\YMAXBSSCFSOC,
-ytick style={color=black},
 legend pos=north west,
 ]
 \addlegendimage{empty legend}

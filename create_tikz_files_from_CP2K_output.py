@@ -199,14 +199,14 @@ if n_occ_bands + n_vir_bands != n_bands:
   exit("error in number of bands")
 energy_window = 7.0
 read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k, "SCF", data_dir+"/band_SCF_", \
-                                       "bandstructure_SCF_data.tex", nkp, nkp_special, \
+                                       "bandstructure_SCF_commands.tex", nkp, nkp_special, \
                                        n_occ_bands, n_bands, energy_window, do_soc=False)
 read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_soc, "SCFSOC", data_dir+"/band_SCF_SOC", \
-                                       "bandstructure_SCF_SOC_data.tex", nkp, nkp_special, \
+                                       "bandstructure_SCF_SOC_commands.tex", nkp, nkp_special, \
                                        2*n_occ_bands, 2*n_bands, energy_window, do_soc=True)
 read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_g0w0, "GW", data_dir+"/band_G0W0_", \
-                                       "bandstructure_G0W0_data.tex", nkp, nkp_special, \
+                                       "bandstructure_G0W0_commands.tex", nkp, nkp_special, \
                                        n_occ_bands, n_bands, energy_window, do_soc=False)
 read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_g0w0_soc, "GWSOC", data_dir+"/band_SCF_G0W0_SOC", \
-                                       "bandstructure_G0W0_SOC_data.tex", nkp, nkp_special, \
+                                       "bandstructure_G0W0_SOC_commands.tex", nkp, nkp_special, \
                                        2*n_occ_bands, 2*n_bands, energy_window, do_soc=True)

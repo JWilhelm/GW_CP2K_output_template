@@ -6,21 +6,23 @@ tick align=outside,
 tick pos=left,
 x grid style={white!70!black},
 xmajorgrids,
-xmin=0, 
-xmax=\XMAXBSGW,
-xtick={\TICKSSPECIALKPOINTSBSGW},
-\XTICKLABELSGW
+xlabel={Density of states (1/eV)},
+%xtick style={color=black},
+%xtick={\TICKSSPECIALKPOINTSBSSCF},
+%\XTICKLABELSSCF
 minor y tick num=1,
 grid=both,
 y grid style={white!70!black},
-ylabel={$E-E_\text{VBM}$ in eV},
+ylabel={},
+ymin=\YMINBSSCF,
+ymax=\YMAXBSSCF,
 ymajorgrids,
-ymin=\YMINBSGW,
-ymax=\YMAXBSGW,
+yticklabels={},
+ytick style={draw=none},
 legend pos=north west,
 ]
 \addlegendimage{empty legend}
-\addlegendentry{$G_0W_0$}
-\PLOTSBSGW
+\addlegendentry{SCF}
+\PLOTSDOSSCF
 \end{axis}
 \end{tikzpicture}

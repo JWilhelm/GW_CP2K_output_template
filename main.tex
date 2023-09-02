@@ -65,10 +65,11 @@ headheight=25pt,
 
 % Aliases
 \input{aliases.tex}
-\input{bandstructure_SCF_data.tex}
-\input{bandstructure_SCF_SOC_data.tex}
-\input{bandstructure_G0W0_data.tex}
-\input{bandstructure_G0W0_SOC_data.tex}
+\input{bandstructure_SCF_commands.tex}
+\input{bandstructure_SCF_SOC_commands.tex}
+\input{bandstructure_G0W0_commands.tex}
+\input{bandstructure_G0W0_SOC_commands.tex}
+\input{DOS_SCF_commands.tex}
 
 \begin{document}
 
@@ -119,6 +120,20 @@ headheight=25pt,
 
 
 \section{Band structure}
+\begin{figure}[h!]
+\centering
+\setlength\figureheight{11cm} 
+\setlength\figurewidth{0.5\textwidth}
+\input{bandstructure_SCF.tikz}
+\hspace{-2.5em}
+\setlength\figurewidth{0.4\textwidth}
+\input{DOS_SCF.tikz}
+\caption{Electronic band structure computed from the self-consistent field (SCF) electronic structure method (left) and computed from $G_0W_0$ (right). The energy of the bands is given relative to the valence band maximum (VBM).}
+    \label{f1}
+\end{figure}
+
+
+
 \begin{figure}[h!]
 \centering
 \setlength\figureheight{11cm} 
