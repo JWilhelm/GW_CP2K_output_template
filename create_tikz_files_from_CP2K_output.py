@@ -213,8 +213,18 @@ def read_dos_pdos_and_write_tikz_data(dos_pdos_file, scf_gw, data_dir, fname_com
                 f.write("\\newcommand{\PLOTSDOS"+scf_gw+"}{\n")
                 f.write("\\addplot[thick, darkblue, smooth] table[x index=1,y index=0] {data/DOS_"+scf_gw+".dat};\n")
                 f.write("\\addlegendentry{DOS}")
+                i_kind = 0
                 for kind in atom_kinds:
-                  f.write("\\addplot[thick, smooth] table[x index=1,y index=0] {data/PDOS_"+scf_gw+"_"+kind+".dat};\n") 
+                  i_kind += 1
+                  if i_kind == 1: 
+                    color = "orange"
+                  elif i_kind == 2:
+                    color = "darkgreen"
+                  elif i_kind == 3:
+                    color = "darkred"
+                  elif i_kind == 4:
+                    color = "brown"
+                  f.write("\\addplot[thick,"+color+", smooth] table[x index=1,y index=0] {data/PDOS_"+scf_gw+"_"+kind+".dat};\n") 
                   f.write("\\addlegendentry{PDOS "+kind+"}")
                 f.write("}\n")
 
