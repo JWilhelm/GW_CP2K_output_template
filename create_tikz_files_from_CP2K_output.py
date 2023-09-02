@@ -272,3 +272,4 @@ read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_g0w0_soc, "GWSOC"
                                        2*n_occ_bands, 2*n_bands, energy_window, do_soc=True)
 
 read_dos_pdos_and_write_tikz_data(dos_pdos_file_cp2k, "SCF", data_dir, "DOS_SCF_commands.tex")
+read_dos_pdos_and_write_tikz_data(dos_pdos_file_cp2k_g0w0, "GW", data_dir, "DOS_GW_commands.tex")
