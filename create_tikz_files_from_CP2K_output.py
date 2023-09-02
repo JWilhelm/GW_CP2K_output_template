@@ -1,6 +1,25 @@
 import os 
 import re
 
+def clean_data_dir(data_dir):
+    try:
+        # Use os.rmdir to remove an empty directory
+        os.rmdir(data_dir)
+    except OSError:
+        # If the directory is not empty, use os.remove for files and os.rmdir for directories recursively
+        for root, dirs, files in os.walk(data_dir, topdown=False):
+            for file in files:
+                file_path = os.path.join(root, file)
+                os.remove(file_path)
+            for dir in dirs:
+                dir_path = os.path.join(root, dir)
+                os.rmdir(dir_path)
+        if os.path.exists(data_dir):
+            os.rmdir(data_dir)
+
+    os.mkdir(data_dir)
+
+
 def find_single_file_with_patterns(patterns):
     matching_files = []
 
@@ -213,6 +232,7 @@ def read_dos_pdos_and_write_tikz_data(dos_pdos_file, scf_gw, data_dir, fname_com
 
 # names and running the program
 data_dir = "data"
+clean_data_dir(data_dir)
 
 bandstructure_file_cp2k = "bandstructure_SCF.bs"
 bandstructure_file_cp2k_soc = "bandstructure_SCF_SOC.bs"
