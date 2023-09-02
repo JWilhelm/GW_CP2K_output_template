@@ -19,6 +19,6 @@ ytick style={draw=none},
 legend pos=outer north east,
 legend cell align={left},
 ]
-\PLOTSDOSSCF
+\PLOTSDOSGW
 \end{axis}
 \end{tikzpicture}
