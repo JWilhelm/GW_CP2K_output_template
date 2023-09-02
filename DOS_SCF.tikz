@@ -7,8 +7,6 @@ tick pos=left,
 x grid style={white!70!black},
 xmajorgrids,
 xlabel={Density of states (1/eV)},
-%xtick style={color=black},
-%xtick={\TICKSSPECIALKPOINTSBSSCF},
 %\XTICKLABELSSCF
 minor y tick num=1,
 grid=both,

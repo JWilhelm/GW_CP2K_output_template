@@ -74,7 +74,7 @@ def any_number_in_interval(arr, a, b):
             return True
     return False
 
-def read_bandstructure_and_write_tikz_data(filename, scf_gw, fname_write, fname_data, nkp, nkp_special, n_occ_bands, n_bands, energy_window, do_soc):
+def read_bandstructure_and_write_tikz_data(filename, scf_gw, fname_write, fname_commands, nkp, nkp_special, n_occ_bands, n_bands, energy_window, do_soc):
 
     bandstructure = [[0.0] *  nkp for _ in range(n_bands)]
     xkp = [0.0] * nkp
@@ -110,7 +110,7 @@ def read_bandstructure_and_write_tikz_data(filename, scf_gw, fname_write, fname_
     e1 = e_VBM - energy_window/2
     e2 = e_CBM + energy_window/2
 
-    with open(fname_data, 'w') as f:
+    with open(fname_commands, 'w') as f:
         f.write("\\newcommand{\\XMAXBS"+scf_gw+"}{"+str(abskp[-1])+"}\n")
         f.write("\\newcommand{\\YMINBS"+scf_gw+"}{"+str(-energy_window/2)+"}\n")
         f.write("\\newcommand{\\YMAXBS"+scf_gw+"}{"+str(e_CBM-e_VBM+energy_window/2)+"}\n")
@@ -124,13 +124,13 @@ def read_bandstructure_and_write_tikz_data(filename, scf_gw, fname_write, fname_
           with open(fname_composed, 'w') as f:
             for ikp in range(nkp):
               f.write(str(abskp[ikp]) + ' ' + str(bandstructure[band_index][ikp]-e_VBM) + '\n')
-          with open(fname_data, 'a') as f:
+          with open(fname_commands, 'a') as f:
               if do_soc and band_index % 2 == 1:
                   f.write("\\addplot[very thick, orange, dashed, smooth] table {"+fname_composed+"};\n")
               else:
                   f.write("\\addplot[very thick, darkblue, smooth] table {"+fname_composed+"};\n")
 
-    with open(fname_data, 'a') as f:
+    with open(fname_commands, 'a') as f:
         f.write("}\n")
         f.write("\\newcommand{\XTICKLABELS"+scf_gw+"}{xticklabels={")
 
@@ -142,7 +142,7 @@ def read_bandstructure_and_write_tikz_data(filename, scf_gw, fname_write, fname_
     zkp = [0.0] * nkp_special
     for ikp in range(nkp_special):
         if ikp != 0:
-            with open(fname_data, 'a') as f:
+            with open(fname_commands, 'a') as f:
                 f.write(", ")
 
         xkp_word = get_nth_word(filename, 5, "Special point "+str(ikp+1))
@@ -159,34 +159,71 @@ def read_bandstructure_and_write_tikz_data(filename, scf_gw, fname_write, fname_
                          (zkp[ikp]-zkp[ikp-1])**2)**0.5 + abskp[ikp-1]
 
         if kname == "Gamma" or kname == "GAMMA":
-            with open(fname_data, 'a') as f:
+            with open(fname_commands, 'a') as f:
                 f.write("$\\Gamma$")
         else:
-            with open(fname_data, 'a') as f:
+            with open(fname_commands, 'a') as f:
                 f.write(kname)
 
-    with open(fname_data, 'a') as f:
+    with open(fname_commands, 'a') as f:
         f.write("},}\n")
         f.write("\\newcommand{\TICKSSPECIALKPOINTSBS"+scf_gw+"}{")
 
     for ikp in range(nkp_special):
         if ikp != 0:
-            with open(fname_data, 'a') as f:
+            with open(fname_commands, 'a') as f:
                 f.write(", ")
-        with open(fname_data, 'a') as f:
+        with open(fname_commands, 'a') as f:
             f.write(str(abskp[ikp]))
 
-    with open(fname_data, 'a') as f:
+    with open(fname_commands, 'a') as f:
         f.write("}\n")
+
+
+def read_dos_pdos_and_write_tikz_data(dos_pdos_file, scf_gw, data_dir, fname_commands):
+
+    with open(dos_pdos_file, 'r') as file:
+        for line in file:
+
+            line_split = line.split()
+
+            if "Energy" in line:
+              n_atom_kind = len(line_split) - 9
+              atom_kinds = line_split[9:]
+              with open("DOS_"+scf_gw+"_commands.tex", 'w') as f:
+                f.write("\\newcommand{\PLOTSDOS"+scf_gw+"}{\n")
+                f.write("\\addplot[thick, darkblue, smooth] table[x index=1,y index=0] {data/DOS_"+scf_gw+".dat};\n")
+                for kind in atom_kinds:
+                  f.write("\\addplot[thick, smooth] table[x index=1,y index=0] {data/PDOS_"+scf_gw+"_"+kind+".dat};\n") 
+                f.write("}\n")
+
+            else:
+              energy = line_split[0]
+              dos = line_split[1]
+              pdos = line_split[2:]
+
+              with open(data_dir+"/DOS_"+scf_gw+".dat", 'a') as f:
+                  f.write(energy+" "+dos+"\n")
+
+              for i_kind in range(n_atom_kind):
+                  with open(data_dir+"/PDOS_"+scf_gw+"_"+atom_kinds[i_kind]+".dat", 'a') as f:
+                     f.write(energy+" "+pdos[i_kind]+"\n")
 
 
 
 # names and running the program
 data_dir = "data"
+
 bandstructure_file_cp2k = "bandstructure_SCF.bs"
 bandstructure_file_cp2k_soc = "bandstructure_SCF_SOC.bs"
 bandstructure_file_cp2k_g0w0 = "bandstructure_G0W0.bs"
 bandstructure_file_cp2k_g0w0_soc = "bandstructure_G0W0_SOC.bs"
+
+dos_pdos_file_cp2k = "DOS_PDOS_SCF.out"
+dos_pdos_file_cp2k_soc = "DOS_PDOS_SCF_SOC.out"
+dos_pdos_file_cp2k_g0w0 = "DOS_PDOS_G0W0.out"
+dos_pdos_file_cp2k_g0w0_soc = "DOS_PDOS_G0W0_SOC.out"
+
 create_directory_if_not_exists(data_dir)
 nkp, nkp_special = get_number_of_kpoints(bandstructure_file_cp2k)
 n_bands = get_number_of_bands(bandstructure_file_cp2k)
@@ -198,6 +235,7 @@ n_vir_bands = int(n_vir_bands)
 if n_occ_bands + n_vir_bands != n_bands:
   exit("error in number of bands")
 energy_window = 7.0
+
 read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k, "SCF", data_dir+"/band_SCF_", \
                                        "bandstructure_SCF_commands.tex", nkp, nkp_special, \
                                        n_occ_bands, n_bands, energy_window, do_soc=False)
@@ -210,3 +248,5 @@ read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_g0w0, "GW", data_
 read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_g0w0_soc, "GWSOC", data_dir+"/band_SCF_G0W0_SOC", \
                                        "bandstructure_G0W0_SOC_commands.tex", nkp, nkp_special, \
                                        2*n_occ_bands, 2*n_bands, energy_window, do_soc=True)
+
+read_dos_pdos_and_write_tikz_data(dos_pdos_file_cp2k, "SCF", data_dir, "DOS_SCF_commands.tex")
