@@ -203,11 +203,11 @@ def read_dos_pdos_and_write_tikz_data(dos_pdos_file, scf_gw, data_dir, fname_com
               pdos = line_split[2:]
 
               with open(data_dir+"/DOS_"+scf_gw+".dat", 'a') as f:
-                  f.write(energy+" "+dos+"\n")
+                  f.write("     "+energy+" "+dos+"\n")
 
               for i_kind in range(n_atom_kind):
                   with open(data_dir+"/PDOS_"+scf_gw+"_"+atom_kinds[i_kind]+".dat", 'a') as f:
-                     f.write(energy+" "+pdos[i_kind]+"\n")
+                     f.write("    "+energy+" "+pdos[i_kind]+"\n")
 
 
 
