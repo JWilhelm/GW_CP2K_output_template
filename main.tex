@@ -70,7 +70,9 @@ headheight=25pt,
 \input{bandstructure_G0W0_commands.tex}
 \input{bandstructure_G0W0_SOC_commands.tex}
 \input{DOS_SCF_commands.tex}
+\input{DOS_SCF_SOC_commands.tex}
 \input{DOS_GoWo_commands.tex}
+\input{DOS_GoWo_SOC_commands.tex}
 
 \begin{document}
 
@@ -145,6 +147,23 @@ headheight=25pt,
 \input{DOS_GoWo.tikz}
 \caption{Left: Electronic band structure computed from $G_0W_0$. Right: Electronic DOS and PDOS on atom kinds computed from $G_0W_0$.}
 \end{figure}
+
+
+\begin{figure}[h!]
+\centering
+\setlength\figureheight{11cm} 
+\setlength\figurewidth{0.5\textwidth}
+\input{bandstructure_SCF_SOC.tikz}
+\hspace{-2.5em}
+\setlength\figurewidth{0.4\textwidth}
+\input{DOS_SCF_SOC.tikz}
+\caption{Left: Electronic band structure computed from the self-consistent field (SCF) electronic structure method. Right: Electronic density of states (DOS) and projected DOS (PDOS) on atom kinds computed from the SCF method.}
+    \label{f2}
+\end{figure}
+
+
+
+
 
 \begin{figure}[h!]
 \centering
