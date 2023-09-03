@@ -283,5 +283,5 @@ read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_g0w0_soc, "GWSOC"
 
 read_dos_pdos_and_write_tikz_data(dos_pdos_file_cp2k, "SCF", data_dir, "DOS_SCF_commands.tex")
 read_dos_pdos_and_write_tikz_data(dos_pdos_file_cp2k_g0w0, "GoWo", data_dir, "DOS_G0W0_commands.tex")
-read_dos_pdos_and_write_tikz_data(dos_pdos_file_cp2k_soc, "SCF_SOC", data_dir, "DOS_SCF_SOC_commands.tex")
-read_dos_pdos_and_write_tikz_data(dos_pdos_file_cp2k_g0w0_soc, "GoWo_SOC", data_dir, "DOS_G0W0_SOC_commands.tex")
+read_dos_pdos_and_write_tikz_data(dos_pdos_file_cp2k_soc, "SCFSOC", data_dir, "DOS_SCF_SOC_commands.tex")
+read_dos_pdos_and_write_tikz_data(dos_pdos_file_cp2k_g0w0_soc, "GoWoSOC", data_dir, "DOS_G0W0_SOC_commands.tex")
