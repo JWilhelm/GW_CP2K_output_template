@@ -9,6 +9,8 @@ xmajorgrids,
 xmin=0, 
 xmax=\XMAXBSSCFSOC,
 xtick={\TICKSSPECIALKPOINTSBSSCFSOC},
+xlabel={\color{white}Ky},
+xlabel style={yshift=-0.04em},
 \XTICKLABELSSCFSOC
 minor y tick num=1,
 grid=both,

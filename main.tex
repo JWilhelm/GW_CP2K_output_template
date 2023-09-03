@@ -119,67 +119,61 @@ headheight=25pt,
 
 \pagestyle{fancy}
 
-\section{Input parameters}
-
-
 \section{Band structure and density of states}
 \begin{figure}[h!]
 \centering
-\setlength\figureheight{11cm} 
+\setlength\figureheight{10cm} 
 \setlength\figurewidth{0.5\textwidth}
 \input{bandstructure_SCF.tikz}
 \hspace{-2.5em}
 \setlength\figurewidth{0.4\textwidth}
 \input{DOS_SCF.tikz}
 \caption{Left: Electronic band structure computed from the self-consistent field (SCF) electronic structure method. Right: Electronic density of states (DOS) and projected DOS (PDOS) on atom kinds computed from the SCF method.}
-    \label{f2}
+    \label{f1}
 \end{figure}
 
 
 
 \begin{figure}[h!]
 \centering
-\setlength\figureheight{11cm} 
-\setlength\figurewidth{0.47\textwidth}
+\setlength\figureheight{10cm} 
+\setlength\figurewidth{0.5\textwidth}
 \input{bandstructure_G0W0.tikz}
 \hspace{-2.5em}
 \setlength\figurewidth{0.4\textwidth}
 \input{DOS_GoWo.tikz}
 \caption{Left: Electronic band structure computed from $G_0W_0$. Right: Electronic DOS and PDOS on atom kinds computed from $G_0W_0$.}
+    \label{f2}
 \end{figure}
 
 
 \begin{figure}[h!]
 \centering
-\setlength\figureheight{11cm} 
+\setlength\figureheight{10cm} 
 \setlength\figurewidth{0.5\textwidth}
 \input{bandstructure_SCF_SOC.tikz}
 \hspace{-2.5em}
 \setlength\figurewidth{0.4\textwidth}
 \input{DOS_SCF_SOC.tikz}
-\caption{Left: Electronic band structure computed from the self-consistent field (SCF) electronic structure method. Right: Electronic density of states (DOS) and projected DOS (PDOS) on atom kinds computed from the SCF method.}
-    \label{f2}
+\caption{Left: Electronic band structure computed from SCF with spin-orbit coupling (SOC). Blue bands have an odd band index (1, 3, 5, $\ldots$) and orange bands have an even band index (2, 4, 6, $\ldots$).  Right: Electronic DOS and PDOS on atom kinds computed from  SCF+SOC.}
+    \label{f3}
 \end{figure}
-
-
 
 
 
 \begin{figure}[h!]
 \centering
-\setlength\figureheight{11cm} 
-\setlength\figurewidth{0.47\textwidth}
-\input{bandstructure_SCF_SOC.tikz}
-\hfill
+\setlength\figureheight{10cm} 
+\setlength\figurewidth{0.5\textwidth}
 \input{bandstructure_G0W0_SOC.tikz}
-\caption{Electronic band structure computed from the self-consistent field (SCF) electronic structure method with spin-orbit coupling (SOC). The energy of the bands is given relative to the valence band maximum (VBM).
-%
-Blue bands have an odd band index (1, 3, 5, $\ldots$) and orange bands have an even band index (2, 4, 6, $\ldots$). 
-%
-The blue/orange color does not include information on the spin expectation value of the bands. 
-}
-    \label{f3}
+\hspace{-2.5em}
+\setlength\figurewidth{0.4\textwidth}
+\input{DOS_GoWo_SOC.tikz}
+\caption{Left: Electronic band structure computed from $G_0W_0$ with SOC. Right: Electronic DOS and PDOS on atom kinds computed from  $G_0W_0$+SOC.}
+    \label{f4}
 \end{figure}
+
+
 
 
 
