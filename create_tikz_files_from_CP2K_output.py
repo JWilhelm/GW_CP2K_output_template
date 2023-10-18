@@ -20,11 +20,11 @@ def clean_data_dir(data_dir):
     os.mkdir(data_dir)
 
 
-def find_single_file_with_patterns(patterns):
+def find_single_file_with_patterns(patterns, cp2k_calc_dir):
     matching_files = []
 
-    for filename in os.listdir("."):
-        file_path = os.path.join(".", filename)
+    for filename in os.listdir(cp2k_calc_dir):
+        file_path = os.path.join(cp2k_calc_dir, filename)
 
         if os.path.isfile(file_path) and not filename.endswith(".matrix") and not filename.endswith(".py"):
             try:
@@ -41,7 +41,7 @@ def find_single_file_with_patterns(patterns):
     elif len(matching_files) > 1:
         raise ValueError("Error: Multiple files matching all patterns found.")
     
-    return matching_files[0]
+    return cp2k_calc_dir+"/"+matching_files[0]
 
 def create_directory_if_not_exists(directory_name):
     if not os.path.exists(directory_name):
@@ -244,22 +244,24 @@ def read_dos_pdos_and_write_tikz_data(dos_pdos_file, scf_gw, data_dir, fname_com
 
 # names and running the program
 data_dir = "data"
+cp2k_calc_dir = "CP2K_calc"
+
 clean_data_dir(data_dir)
 
-bandstructure_file_cp2k = "bandstructure_SCF.bs"
-bandstructure_file_cp2k_soc = "bandstructure_SCF_SOC.bs"
-bandstructure_file_cp2k_g0w0 = "bandstructure_G0W0.bs"
-bandstructure_file_cp2k_g0w0_soc = "bandstructure_G0W0_SOC.bs"
+bandstructure_file_cp2k = cp2k_calc_dir+"/bandstructure_SCF.bs"
+bandstructure_file_cp2k_soc = cp2k_calc_dir+"/bandstructure_SCF_SOC.bs"
+bandstructure_file_cp2k_g0w0 = cp2k_calc_dir+"/bandstructure_G0W0.bs"
+bandstructure_file_cp2k_g0w0_soc = cp2k_calc_dir+"/bandstructure_G0W0_SOC.bs"
 
-dos_pdos_file_cp2k = "DOS_PDOS_SCF.out"
-dos_pdos_file_cp2k_soc = "DOS_PDOS_SCF_SOC.out"
-dos_pdos_file_cp2k_g0w0 = "DOS_PDOS_G0W0.out"
-dos_pdos_file_cp2k_g0w0_soc = "DOS_PDOS_G0W0_SOC.out"
+dos_pdos_file_cp2k = cp2k_calc_dir+"/DOS_PDOS_SCF.out"
+dos_pdos_file_cp2k_soc = cp2k_calc_dir+"/DOS_PDOS_SCF_SOC.out"
+dos_pdos_file_cp2k_g0w0 = cp2k_calc_dir+"/DOS_PDOS_G0W0.out"
+dos_pdos_file_cp2k_g0w0_soc = cp2k_calc_dir+"/DOS_PDOS_G0W0_SOC.out"
 
 create_directory_if_not_exists(data_dir)
 nkp, nkp_special = get_number_of_kpoints(bandstructure_file_cp2k)
 n_bands = get_number_of_bands(bandstructure_file_cp2k)
-cp2k_out_file_name = find_single_file_with_patterns(["GW CALC","time/freq. p","URE CALC"])
+cp2k_out_file_name = find_single_file_with_patterns(["GW CALC","time/freq. p","URE CALC"], cp2k_calc_dir)
 n_occ_bands = get_nth_word(cp2k_out_file_name, 10, "occupied bands in the primitive unit cell")
 n_occ_bands = int(n_occ_bands)
 n_vir_bands = get_nth_word(cp2k_out_file_name, 10, "unoccupied bands in the primitive unit cell")
@@ -284,4 +286,4 @@ read_bandstructure_and_write_tikz_data(bandstructure_file_cp2k_g0w0_soc, "GWSOC"
 read_dos_pdos_and_write_tikz_data(dos_pdos_file_cp2k, "SCF", data_dir, "DOS_SCF_commands.tex")
 read_dos_pdos_and_write_tikz_data(dos_pdos_file_cp2k_g0w0, "GoWo", data_dir, "DOS_G0W0_commands.tex")
 read_dos_pdos_and_write_tikz_data(dos_pdos_file_cp2k_soc, "SCFSOC", data_dir, "DOS_SCF_SOC_commands.tex")
-read_dos_pdos_and_write_tikz_data(dos_pdos_file_cp2k_g0w0_soc, "GoWoSOC", data_dir, "DOS_G0W0_SOC_commands.tex")
+#read_dos_pdos_and_write_tikz_data(dos_pdos_file_cp2k_g0w0_soc, "GoWoSOC", data_dir, "DOS_G0W0_SOC_commands.tex")
